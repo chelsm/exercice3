@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>exercice 3</title>
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+	<script>
+        class Humain{
+			prenom
+
+			constructor(...args){
+				if(args[0])
+					this.prenom = args[0]
+			}
+		}
+
+		let person = []
+        let listRandom= []
+		 window.onload = function(){
+			document.getElementById('form').addEventListener('submit', function(e){
+				e.preventDefault(); 
+				let prenom = document.getElementById('firstname').value.trim();
+            
+
+                if(!prenom){
+					document.querySelector('.messages').innerHTML = `
+						<p class="error">Le prenom est obligatoire</p>
+					`
+				}
+                else{
+					let myHumain = new Humain(
+						prenom
+					)
+					console.log(myHumain)
+					person.push(myHumain);
+					form.reset()
+					document.querySelector('.messages').innerHTML = ``
+				}
+				document.querySelector('#name-list').innerHTML = ""
+
+				for ( var i = 0 ; i< person.length ; i++){
+                    document.querySelector('#name-list').innerHTML += `
+                    <p>${person[i].prenom}</p>
+                    `
+                }
+					
+
+                
+            });
+        }
+
+        function shuffle(){
+            console.log(person.length)
+            if (person.length < 2 ){
+                document.querySelector('.messages').innerHTML = `Il faut rentrer au moins deux prénoms`
+            }
+            else{
+                let selectedPers = document.getElementById('#selected-person')
+                let newPers = person.map(p=>listRandom.push(p.prenom))
+                const random = Math.floor(Math.random() * listRandom.length);
+                document.querySelector('#selected-person').innerHTML = listRandom[random]
+            
+            }
+		}
+
+		
+	</script>
+</head>
+<body>
+	<h1>Tirage au sort</h1>
+    <div class="messages"></div>
+		
+	<div class="row" style="display: flex; gap: 10%">
+		<article>
+			<h1>Ajouter un prénom</h1>
+			<form id="form">
+				<p>
+					<label for="firstname">Prénom</label>
+					<input type="text" name="firstname" id="firstname" required>
+				</p>
+				<p>
+					<button type="submit">Ajouter</button>
+				</p>
+			</form>
+
+            <h1>liste des prenoms</h1>
+			<button onclick="shuffle()">tirage</button>
+
+            <div id="name-list"></div>
+
+		</article>
+        <article>
+            <div>
+                <h1>personne selectionné</h1>
+                <span id="selected-person"></span>
+            </div>
+        </article>
+
+	</div>
+	
+</body>
+</html>
